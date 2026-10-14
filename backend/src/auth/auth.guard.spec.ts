@@ -1,0 +1,27 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigService } from '@nestjs/config';
+import { AuthGuard } from './auth.guard';
+
+describe('AuthGuard', () => {
+  let guard: AuthGuard;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        AuthGuard,
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn().mockReturnValue('norte70-dev-token-2026'),
+          },
+        },
+      ],
+    }).compile();
+
+    guard = module.get<AuthGuard>(AuthGuard);
+  });
+
+  it('should be defined', () => {
+    expect(guard).toBeDefined();
+  });
+});
